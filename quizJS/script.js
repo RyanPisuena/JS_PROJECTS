@@ -1,7 +1,7 @@
 let questions = [
   {
-      prompt:"",
-      answer:""
+      prompt:"Javascript is a case-sensitive language \n (a) yes \n (b) no",
+      answer:"a"
   },
   {
     prompt:"",
@@ -12,3 +12,5 @@ let questions = [
     answer:""
   }
 ]
+
+let score = 0;
