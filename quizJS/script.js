@@ -3,7 +3,7 @@ let questions = [{
     answer: "a"
   },
   {
-    prompt: "(As of August 7, 2018) What is the latest version of JS? \n (a) ES0 \n (b) IE8 (c) ES6 (d) Mozilla Firefox"
+    prompt: "(As of August 7, 2018) What is the latest version of JS? \n (a) ES0 \n (b) IE8 (c) ES6 (d) Mozilla Firefox",
     answer: "c"
   },
   {
