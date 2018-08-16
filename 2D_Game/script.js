@@ -37,8 +37,11 @@ function draw() {
   if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
     dx = -dx;
   }
-  if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
+  if (y + dy < ballRadius) {
     dy = -dy;
+  } else if (y + dy > canvas.height - ballRadius) { // if ball touches the bottom, then restart the game
+    alert("GAME OVER"); // Alert notification stating game is over
+    document.location.reload(); // Reloads the page
   }
 
   if (rightPressed && paddleX < canvas.width - paddleWidth) {
