@@ -8,8 +8,26 @@ let ballRadius = 10;
 let paddleHeight = 10;
 let paddleWidth = 75;
 let paddleX = (canvas.width - paddleWidth) / 2;
-let leftPressed = false; // Variable storing whether or not the left arrow key has been pressed
-let rightPressed = false; // Variable storing whether or not the right arrow key has been pressed
+let leftPressed = false; // variable storing whether or not the left arrow key has been pressed
+let rightPressed = false; // variable storing whether or not the right arrow key has been pressed
+/******************************************/
+let brickRowCount = 3; // variable containing the number of rows for the bricks
+let brickColumnCount = 5; //  variable containing the number of columns for the bricks
+let brickWidth = 75; // variable containing the width of the brick
+let brickHeight = 20; // variable containing the height of the brick
+let brickPadding = 10; // variable containing the padding between each brick
+let brickOffsetTop = 30; // variable containing the top offset of the bricks
+let brickOffsetLeft = 30; // variable containing the left offset of the bricks
+/*****************************************/
+// 2D array creating the bricks
+let bricks = [];
+for(let c=0; c<brickColumnCount; c++) {
+    bricks[c] = [];
+    for(let r=0; r<brickRowCount; r++) {
+        bricks[c][r] = { x: 0, y: 0 };
+    }
+}
+/****************************************/
 
 function drawBall() {
   ctx.beginPath();
@@ -26,9 +44,27 @@ function drawPaddle() {
   ctx.fill();
   ctx.closePath();
 }
-
+/**************************************/
+// drawBricks function that creates the wall of bricks for the ball to hit
+function drawBricks() {
+    for(let c=0; c<brickColumnCount; c++) {
+        for(let r=0; r<brickRowCount; r++) {
+            let brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
+            let brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
+            bricks[c][r].x = brickX;
+            bricks[c][r].y = brickY;
+            ctx.beginPath();
+            ctx.rect(brickX, brickY, brickWidth, brickHeight);
+            ctx.fillStyle = "#0095DD";
+            ctx.fill();
+            ctx.closePath();
+        }
+    }
+}
+/**************************************/
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBricks(); // Draws the brick wall that the ball hits 
   drawBall(); // Shorten code inside draw();
   drawPaddle(); // Draws the paddle controlled by the user
   x += dx;
@@ -40,8 +76,13 @@ function draw() {
   if (y + dy < ballRadius) {
     dy = -dy;
   } else if (y + dy > canvas.height - ballRadius) { // if ball touches the bottom, then restart the game
-    alert("GAME OVER"); // Alert notification stating game is over
-    document.location.reload(); // Reloads the page
+    if(x > paddleX && x < paddleX + paddleWidth) { // checks if the ball hits the bottom, if it happens to hit the paddle
+           dy = -dy;
+       }
+       else { // if not, the user is given a "game over" alert and the page is reloaded
+           alert("GAME OVER");
+           document.location.reload();
+       }
   }
 
   if (rightPressed && paddleX < canvas.width - paddleWidth) {
