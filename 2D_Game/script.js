@@ -101,9 +101,19 @@ function draw() {
   }
 }
 
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("keydown", keyDownHandler, false); // listener for key down
+document.addEventListener("keyup", keyUpHandler, false); // listener for key up
+document.addEventListener("mousemove", mouseMoveHandler, false); // listener for mouse
 
+/*************************************************************/
+//  Paddle will follow the mouse cursor
+function mouseMoveHandler(e) {
+    let relativeX = e.clientX - canvas.offsetLeft;
+    if(relativeX > 0 && relativeX < canvas.width) {
+        paddleX = relativeX - paddleWidth/2;
+    }
+}
+/*************************************************************/
 function keyDownHandler(e) { // function for assigning boolean values based on whether or not a key arrow is down
 
   if (e.keyCode == 39) { // right arrow key is equal to 39
@@ -112,6 +122,8 @@ function keyDownHandler(e) { // function for assigning boolean values based on w
     leftPressed = true;
   }
 }
+
+/*************************************************************/
 
 function keyUpHandler(e) { // function for assigning boolean values based on whether or not a key arrow is up
   if (e.keyCode == 39) { // right arrow key is equal to 39
