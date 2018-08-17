@@ -21,6 +21,8 @@ let brickOffsetLeft = 30; // variable containing the left offset of the bricks
 /*****************************************/
 let score = 0 // Keeps track of the user's score
 /******************************************/
+let lives = 3; // Sets the number of lives the user has
+/********************************************/
 // 2D array creating the bricks
 let bricks = [];
 for (let c = 0; c < brickColumnCount; c++) {
@@ -34,7 +36,7 @@ for (let c = 0; c < brickColumnCount; c++) {
   }
 }
 /****************************************/
-
+// function that draws the ball
 function drawBall() {
   ctx.beginPath();
   ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
@@ -42,7 +44,8 @@ function drawBall() {
   ctx.fill();
   ctx.closePath();
 }
-
+/***************************************/
+// function that draws the paddle
 function drawPaddle() {
   ctx.beginPath();
   ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
@@ -76,6 +79,7 @@ function draw() {
   drawBall(); // Shorten code inside draw();
   drawPaddle(); // Draws the paddle controlled by the user
   drawScore(); // Prints the score on the gamedev canvas
+  drawLives(); // Prints the number of lives the user has left in the game
   collisionDetection(); // Creates detection by brick for the ball touching it
   x += dx;
   y += dy;
@@ -89,8 +93,18 @@ function draw() {
     if (x > paddleX && x < paddleX + paddleWidth) { // checks if the ball hits the bottom, if it happens to hit the paddle
       dy = -dy;
     } else { // if not, the user is given a "game over" alert and the page is reloaded
-      alert("GAME OVER");
-      document.location.reload();
+    lives--;
+    if(!lives) {
+        alert("GAME OVER");
+        document.location.reload();
+    }
+    else { // This else statement's code is executed when lives does not equal zero and simply reloads the page
+        x = canvas.width/2;
+        y = canvas.height-30;
+        dx = 2;
+        dy = -2;
+        paddleX = (canvas.width-paddleWidth)/2;
+    }
     }
   }
 
@@ -164,5 +178,14 @@ function drawScore() {
 }
 
 /***************************************************************/
-setInterval(draw, 10);
+// function that prints the number of lives the player has
+function drawLives() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+}
+
+/***************************************************************/
+draw();
+requestAnimationFrame(draw); // browser determines the framerate
 window.onload = init;
