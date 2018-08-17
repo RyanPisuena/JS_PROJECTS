@@ -24,7 +24,7 @@ let bricks = [];
 for(let c=0; c<brickColumnCount; c++) {
     bricks[c] = [];
     for(let r=0; r<brickRowCount; r++) {
-        bricks[c][r] = { x: 0, y: 0 };
+      bricks[c][r] = { x: 0, y: 0, status: 1 }; // Status one is for whether or not the brick was hit
     }
 }
 /****************************************/
@@ -64,7 +64,7 @@ function drawBricks() {
 /**************************************/
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawBricks(); // Draws the brick wall that the ball hits 
+  drawBricks(); // Draws the brick wall that the ball hits
   drawBall(); // Shorten code inside draw();
   drawPaddle(); // Draws the paddle controlled by the user
   x += dx;
@@ -111,6 +111,19 @@ function keyUpHandler(e) { // function for assigning boolean values based on whe
     leftPressed = false;
   }
 }
+/*************************************************************/
 
+//function determines if the ball has hit a brick
+function collisionDetection() {
+    for(let c=0; c<brickColumnCount; c++) {
+        for(let r=0; r<brickRowCount; r++) {
+            let b = bricks[c][r]; // sets the variable b equal to the brick in column c and row r
+            if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+                dy = -dy;
+            }
+        }
+    }
+}
+/**************************************************************/
 setInterval(draw, 10);
 window.onload = init;
