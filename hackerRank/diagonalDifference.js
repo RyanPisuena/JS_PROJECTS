@@ -1,5 +1,3 @@
-// Incomplete Solution
-
 'use strict';
 
 const fs = require('fs');
@@ -32,21 +30,20 @@ function diagonalDifference(arr) {
     let firstDiag = 0;
     let secondDiag = 0;
     let sum = 0;
-for (let a = 0; a < arr.length; a++) {
+    for (let a = 0; a < arr.length; a++) {
         /***************/
     for (let b = 0; b < arr.length; b++) {
                 /***************/
         if (a==b) {
             firstDiag += arr[a][b];
         }
-
-        if (Math.abs(a-b) == 2) {
+        if (a+b == (arr.length-1)) {
             secondDiag += arr[a][b];
         }
-                /***************/
     }
-        /***************/
 }
+
+
     /***************/
     sum = firstDiag - secondDiag;
     if (sum < 0) {
