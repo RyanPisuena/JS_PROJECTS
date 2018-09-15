@@ -10,7 +10,7 @@ Working with React and Express to build the next stage of the Portfolio site
 
 ## hackerRank (JS Algorithm Practice Questions)
 
-These are JS questions run by hackerRank that help me practice my understanding of algorithms and improvement of my problem-solving skills
+These are JS questions run by hackerRank that help me practice my understanding of algorithms and improvement of my problem-solving skills. Some of my solutions to these problems may be incomplete or be inefficient and not be reusable in other programs 
 
 ## quizJS (JAVASCRIPT QUIZ)
 
